@@ -1,7 +1,7 @@
 // Colour variables - change these to affect classes like "is-primary"
-$primary-color: #b57ba6;
-$link-color: #19297C;
-$info-color: #79A9D1;
+$primary-color: #D1EBF0;
+$link-color: #495D63;
+$info-color: #EAF9FF;
 $success-color: #68A691;
 $warning-color: #FE5D26;
 $danger-color: #FF220C ;
@@ -9,11 +9,11 @@ $background-color: #FCECC9;
 // $light-color: $light;
 // $dark-color: $dark;
 $text-color: #252323;
-
+// $button-padding-vertical :20px;
+// $button-padding-horizontal :30px;
 // Font variables - change these to affect the text
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-$primary-font: '"Roboto", sans-serif';
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap');
+$title-font: '"Boldonse", system-ui';
 
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-$title-font: '"Pacifico", cursive';
+$primary-font: '"Winky Sans", sans-serif';
