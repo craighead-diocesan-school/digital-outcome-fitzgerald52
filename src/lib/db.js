@@ -62,4 +62,8 @@ export async function getplans() {
 export async function login() {
   const result = await signInWithPopup(auth, provider)
   console.log('User signed in:', result.user)
+  user.uid = result.user.uid
+  user.email = result.user.email
+  user.displayName = result.user.displayName
+  user.photoURL = result.user.photoURL
 }

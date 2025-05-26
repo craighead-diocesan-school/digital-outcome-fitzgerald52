@@ -11,13 +11,7 @@
   </div>
   <div class="column">
     <Header />
-    <button
-      class="button is-primary is-large"
-      on:click={() => {
-        login(login)
-      }}
-      >login
-    </button>
+    <a href="searchpage" class="button is-primary is-large" on:click={login(login)}>login </a>
   </div>
 </main>
 <nav>
