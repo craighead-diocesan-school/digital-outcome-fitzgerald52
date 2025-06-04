@@ -6,9 +6,10 @@
   let plans = getplans()
 
   let newplan = {
-    course: '',
+    uni: '',
     cost: '',
-    location: '',
+    prerequisits: '',
+    name: '',
   }
 </script>
 
@@ -22,11 +23,11 @@
     <p>Loading...</p>
   {:then plans}
     {#each plans as plan}
-      <p>{plan.course} {plan.cost} {plan.location}</p>{/each}
+      <p>{plan.name} {plan.cost} {plan.uni} {plan.prerequisits}</p>{/each}
   {/await}
 
   <label class="label">
-    course: <input bind:value={newplan.course} />
+    name: <input bind:value={newplan.name} />
   </label>
 
   <label class="label">
@@ -34,9 +35,12 @@
   </label>
 
   <label class="label">
-    location: <input bind:value={newplan.location} />
+    uni<input bind:value={newplan.uni} />
   </label>
 
+  <label class="label">
+    prerequisits: <input bind:value={newplan.prerequisits} />
+  </label>
   <button
     class="button"
     on:click={() => {
