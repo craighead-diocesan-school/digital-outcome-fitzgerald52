@@ -1,9 +1,7 @@
 <script>
   import Header from '$lib/Header.svelte'
   import BulmaExamples from '$lib/BulmaExamples.svelte'
-  import { addplan, getplans, login } from '$lib/db.js'
-
-  let plans = getplans()
+  import { login } from '$lib/db.js'
 
   let newplan = {
     uni: '',
@@ -19,12 +17,12 @@
 <Header />
 
 <main class="content section">
-  {#await plans}
+  <!-- {#await plans}
     <p>Loading...</p>
   {:then plans}
     {#each plans as plan}
       <p>{plan.name} {plan.cost} {plan.uni} {plan.prerequisits}</p>{/each}
-  {/await}
+  {/await} -->
 
   <label class="label">
     name: <input bind:value={newplan.name} />

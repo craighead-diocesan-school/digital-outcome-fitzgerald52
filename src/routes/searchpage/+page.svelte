@@ -1,11 +1,26 @@
 <script>
   import Header from '$lib/Header.svelte'
   import Footer from '../../lib/footer.svelte'
-  import { addplan, getplans, login } from '$lib/db.js'
+  import { getdegrees, login } from '$lib/db.js'
   import { data } from '$lib/data'
   let contents = data
+  let plan = []
   let search = ''
+  plan = [
+    {
+      uni: '',
+      name: '',
+      cost: '',
+      location: '',
+      minors: [],
+      prerequisites: '',
+    },
+  ]
+  let degrees = getdegrees()
 
+  function addToPlan() {
+    plan = [...plan, { uni: '', name: '', cost: '', location: '', minors: [], prerequisites: '' }]
+  }
   function filter() {
     contents = []
     for (const degree of data) {
@@ -25,6 +40,12 @@
 </nav>
 <input class="text" placeholder="Search.." name="search" bind:value={search} />
 <button type="submit" onclick={filter}><img src="loupe.png" alt="" /></button>
+{#await degrees}
+  <p>Loading...</p>
+{:then degrees}
+  {#each degrees as degree}
+    <p>{degree.name} {degree.cost} {degree.uni} {degree.prerequisits}</p>{/each}
+{/await}
 
 <table>
   <thead>
@@ -42,6 +63,8 @@
         <td>{degree.uni}</td>
         <td>{degree.cost}</td>
         <td>{degree.prerequisites}</td>
+        <!-- this is not saving THIS PARTICULAR degree into anything, and also it needs to use all the brackers () => {    } -->
+        <td><button class="button" onclick={addToPlan}> Save </button></td>
       </tr>
     {/each}
   </tbody>

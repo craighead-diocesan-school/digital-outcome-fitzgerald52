@@ -43,20 +43,20 @@ const provider = new GoogleAuthProvider()
 
 // Saves a person object to the database.
 
-export async function addplan(plan) {
-  const personDoc = await addDoc(collection(db, 'plans'), plan)
-}
+// export async function adddegree() {
+//   const degreeDoc = await addDoc(collection(db, 'degrees'), degree)
+// }
 
 // Gets all the plans from the database.
-export async function getplans() {
-  let planDocs = await getDocs(collection(db, 'plans'))
+export async function getdegrees() {
+  let degreeDocs = await getDocs(collection(db, 'degrees'))
 
-  let plans = []
+  let degrees = []
 
-  planDocs.forEach((planDoc) => {
-    plans = [...plans, planDoc.data()]
+  degreeDocs.forEach((degreeDoc) => {
+    degrees = [...degrees, degreeDoc.data()]
   })
-  return plans
+  return degrees
 }
 // Signs in a user with Google authentication.
 export async function login() {

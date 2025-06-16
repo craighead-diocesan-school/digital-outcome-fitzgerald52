@@ -6,3 +6,17 @@ export let user = $state({
   displayName: null,
   photoUrl: null,
 })
+// use this to create a plan object thingy
+
+// export let cart = $state(
+//   (plan = [
+//     {
+//       uni: '',
+//       name: '',
+//       cost: '',
+//       location: '',
+//       minors: [],
+//       prerequisites: '',
+//     },
+//   ])
+// )

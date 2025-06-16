@@ -1,7 +1,7 @@
 <script>
   import Header from '$lib/Header.svelte'
   import Footer from '../../lib/footer.svelte'
-  import { addplan, getplans, login } from '$lib/db.js'
+  import { getdegrees, login } from '$lib/db.js'
   import { user } from '$lib/state.svelte.js'
 </script>
 
