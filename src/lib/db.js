@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'
+import { getFirestore, collection, addDoc, getDoc, doc, setDoc } from 'firebase/firestore'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { user, plan } from '$lib/state.svelte.js'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,47 +24,74 @@ const db = getFirestore(app)
 const auth = getAuth(app)
 const provider = new GoogleAuthProvider()
 
-// Saves a person object to the database.
+// adds degree to firebase
+export async function addplan(degree) {
+  const planDoc = await addDoc(collection(db, 'plans', user.uid), degree)
+}
+// removes plan from the cart
+export async function removeplan(index) {
+  plan.degrees = [...plan.degrees.slice(0, index), ...plan.degrees.slice(index + 1)]
+}
 
-// export async function addClassroom(classroom) {
-//   const personDoc = await addDoc(collection(db, 'classrooms'), classroom)
-// }
+export async function saveplan() {
+  const userDoc = await setDoc(doc(db, 'plans', user.uid), plan)
+}
 
-// // Gets all the classrooms from the database.
-// export async function getClassrooms() {
-//   let classroomDocs = await getDocs(collection(db, 'classrooms'))
+export async function getplan() {
+  // Get the plan document for the given UID
+  const planRef = doc(db, 'plans', user.uid)
+  const planSnap = await getDoc(planRef)
 
-//   let classrooms = []
+  if (planSnap.exists()) {
+    // Get the plan data
+    const planData = planSnap.data()
 
-//   classroomDocs.forEach((classroomDoc) => {
-//     classrooms = [...classrooms, classroomDoc.data()]
-//   })
-//   return classrooms
-// }
-
-// Saves a person object to the database.
-
-// export async function adddegree() {
-//   const degreeDoc = await addDoc(collection(db, 'degrees'), degree)
-// }
-
-// Gets all the plans from the database.
-export async function getdegrees() {
-  let degreeDocs = await getDocs(collection(db, 'degrees'))
-
-  let degrees = []
-
-  degreeDocs.forEach((degreeDoc) => {
-    degrees = [...degrees, degreeDoc.data()]
-  })
-  return degrees
+    // and set the plans state with the data
+    plan.uid = planData.uid
+    plan.degrees = planData.degrees
+    // planData.degrees.forEach((planDoc) => {
+    //   plan.degrees = [...plan.degrees, planDoc.data()]
+    // })
+  } else {
+    alert('No saved plan!')
+  }
 }
 // Signs in a user with Google authentication.
 export async function login() {
   const result = await signInWithPopup(auth, provider)
-  console.log('User signed in:', result.user)
+
   user.uid = result.user.uid
   user.email = result.user.email
   user.displayName = result.user.displayName
   user.photoURL = result.user.photoURL
+
+  // Save the  state to local storage as well so that it persists across page reloads
+  let data = JSON.stringify(user)
+  localStorage.setItem('user', data)
+
+  // Set the bests state with the logged in user's UID
+  getplan()
+}
+
+export async function logout() {
+  // Clear the user state
+  user.uid = null
+  user.email = null
+  user.displayName = null
+  user.photoURL = null
+
+  // clear the plan state
+  plan.uid = null
+  plan.degrees = [
+    {
+      uid: '',
+      degrees: [],
+    },
+  ]
+
+  // Clear local storage
+  localStorage.removeItem('user')
+
+  // Sign out from Firebase
+  await signOut(auth)
 }

@@ -17,7 +17,7 @@
 <Header />
 
 <main class="content section">
-  <!-- {#await plans}
+  <!-- {#await }
     <p>Loading...</p>
   {:then plans}
     {#each plans as plan}

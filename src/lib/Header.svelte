@@ -1,6 +1,10 @@
+<script>
+  import { user } from '$lib/state.svelte.js'
+</script>
+
 <header class="hero is-primary">
   <div class="hero-body">
-    <h1 class="title">UniVerse</h1>
+    <h1 class="title">UniVerse - {user.displayName}</h1>
   </div>
 </header>
 <h2 class="subtitle">map your path discover your universe</h2>
